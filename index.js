@@ -20,7 +20,7 @@ document.getElementById("check").addEventListener("click",function() {
             } else {
                 document.getElementById("count").innerHTML= ("");
                 document.getElementById("answer").innerHTML = ("");
-                alert("Thanks for game!!!")
+                alert("Thanks for playing. See you later!!!")
             }
 
         } else if (num > number) {
