@@ -1,0 +1,29 @@
+body {
+    text-align: center;
+    background-image: url("https://www.funbrain.com/assets/img/content-cards/F2qRmLhRnmebc8jJAUjr_GuessTheNumber%403x.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#wstep {
+    color: #000000;
+    margin-top: 4rem;
+    margin-bottom: 80px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 3.2em;
+}
+
+#nr_game, #check {
+    font-size: 1.5em;
+}
+
+#answer {
+    font-size: x-large;
+    color: #000000;
+}
+
+#count {
+    font-size: large;
+    font-weight: bold;
+}
