@@ -1,39 +1,65 @@
-let number = Math.floor(Math.random() * 100) + 1;
-let counter = 0;
+/*
+1) Arka planda random bir sayı tutulacak
+2) Kullanıcıdan sayı alınacak
+3) Kullanıcıdan alınaan sayı kontrol edilecek
+    3.1 Sayı tahminden büyükse "Sayı büyük"
+    3.2 Sayı tahminden küçükse "Sayı küçük"
+    3.3 Sayı eşitse oyunu bitir
+**/
 
-document.getElementById("check").addEventListener("click",function() {
-        let num = document.getElementById("nr_game").value;
-        
-        counter++;
-        document.getElementById("count").innerHTML= ("This is your " + counter + ". try.");
+let guess_count = 0;
+const random_number = Math.floor(Math.random() * 100 + 1);
 
-        if (num == number) {
-            alert("Congratulation! You are the winner! This is your " + counter + ". try.");
-            // document.getElementById("answer").innerHTML = ("You are right!")
-            
-            let new_game = confirm("Do you wanna play again??");
-            if (new_game == true){
-                number = Math.floor(Math.random() * 100) + 1;
-                counter = 0;
-                document.getElementById("answer").innerHTML = ("");
-                document.getElementById("count").innerHTML= ("");
-            } else {
-                document.getElementById("count").innerHTML= ("");
-                document.getElementById("answer").innerHTML = ("");
-                alert("Thanks for playing. See you later!!!")
-            }
+document.querySelector("#check_it").addEventListener("click", checkNumber);
+document.querySelector("#nr_game").addEventListener("keyup", function (event) {
+    if (event.keyCode === 13)
+        checkNumber()
+});
 
-        } else if (num > number) {
-            // counter ++;
-            document.getElementById("answer").innerHTML = ("A lower number please! ");
-        } else if (num < number) {
-            // counter++;
-            document.getElementById("answer").innerHTML = ("A higher number please! ");
-        } else if(isNaN(num)) {
-            counter --;
-            document.getElementById("answer").innerHTML = ("Are you sure that this is a number?");
+function checkNumber(){
+    
+    let userInputElement = document.querySelector("#nr_game");
+    let answerLabelElement = document.querySelector("#answer");
+    let guessLabelElement = document.querySelector("#count_it");
+
+    
+
+    if(userInputElement.value == random_number){
+        alert("You are the winner! Guess time: " + ++guess_count);
+
+        const choice = confirm("Game again?");
+
+        if(choice){
+            guess_count = 0;
+            random_number = Math.floor(Math.random() * 100 + 1);
+            answerLabelElement.innerText = "";
+        } else{
+            alert("Thanks for playing!");
+            answerLabelElement.innerText = "Best guess time: " + guess_count;
+            guessLabelElement.innerText = "";
         }
-        document.getElementById("nr_game").value='';   // Oyun bittikten sonra input icini sifirliyor..
-        document.getElementById("nr_game").focus();   // input u focusluyor..
+
     }
-)
+    else if(userInputElement.value == ""){
+        answerLabelElement.innerText = "Enter a number!"
+    }
+    
+    else if(userInputElement.value == " "){
+        answerLabelElement.innerText = "Enter a number!"
+    }
+    else if(userInputElement.value > random_number){
+        guess_count++;
+        guessLabelElement.innerText = `Guess count is: ${guess_count}`;
+        answerLabelElement.innerText = "Try a smaller number!"
+    }
+    else if(userInputElement.value < random_number){       
+        guess_count++;
+        guessLabelElement.innerText = `Guess count is: ${guess_count}`;
+        answerLabelElement.innerText = "Try a higher number!"
+    }
+    else if(isNaN(userInputElement.value)){
+        answerLabelElement.innerText = "It's not a number!"
+    }
+    userInputElement.focus();
+    userInputElement.value = "";
+}
